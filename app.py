@@ -7,6 +7,7 @@ import pandas as pd
 import re
 from collections import defaultdict
 import pickle
+import os
 
 # =============== UTILITY FUNCTIONS ====================
 
@@ -552,8 +553,14 @@ def create_figure(group1_display, group2_display, normalize_display):
     return fig
 
 # =============== DASH APP ====================
+url_prefix = os.environ.get('SHINYPROXY_PUBLIC_PATH', '/')
 
-app = dash.Dash(__name__)
+
+app = dash.Dash(__name__,
+                requests_pathname_prefix=url_prefix,
+                routes_pathname_prefix=url_prefix,
+                serve_locally=True
+)
 app.title = "Interactive Network Visualization"
 
 app.layout = html.Div([
