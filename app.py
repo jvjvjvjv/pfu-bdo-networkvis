@@ -91,14 +91,17 @@ def load_labels_from_file(filepath):
         # Replace \n with <br> for HTML line breaks
         text = str(row['text']).replace('\\n', '<br>')
         
+        # Apply bold formatting if specified
+        if row.get('font_weight', 'normal') == 'bold':
+            text = f'<b>{text}</b>'
+        
         label = {
             'text': text,
             'x': row['x'],
             'y': row['y'],
             'font_size': row.get('font_size', 14),
             'font_color': row.get('font_color', '#2c3e50'),
-            'font_weight': row.get('font_weight', 'normal'),
-            'angle': row.get('angle', 0)  # Default to 0 if not specified
+            'angle': row.get('angle', 0)
         }
         labels.append(label)
     return labels
@@ -552,16 +555,13 @@ def create_figure(group1_display, group2_display, normalize_display):
                 color=label.get('font_color', '#2c3e50'),
                 family='Arial, sans-serif'
             ),
-            textangle=label.get('angle', 0),  # Add rotation angle
+            textangle=label.get('angle', 0),
             xref='x',
             yref='y',
             align='center',
             bgcolor='rgba(255, 255, 255, 0.7)',
             borderpad=4
         )
-        
-        if label.get('font_weight') == 'bold':
-            annotation['font']['family'] = 'Arial Black, sans-serif'
         
         annotations.append(annotation)
     

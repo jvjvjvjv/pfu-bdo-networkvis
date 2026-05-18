@@ -1,24 +1,24 @@
 text	x	y	font_size	font_color	font_weight	angle
-Glycolysis	5800	-1000	16	#000000	bold	-90
-TCA Cycle	6240	-1750	16	#000000	bold	0
-Asp	6450	-1860	16	#000000	bold	0
-Gln	6250	-1560	16	#000000	bold	0
-Thiamine	7800	-100	16	#000000	bold	0
-Purines	9060	-240	16	#000000	bold	0
-Pyrimidines	8750	-910	16	#000000	bold	0
-His	8840	-700	16	#000000	bold	0
-NAD	8040	-700	16	#000000	bold	0
-Aromatic\namino acids	8000	-1500	16	#000000	bold	0
-Cys	7450	-2110	16	#000000	bold	0
-Thr	7460	-1850	16	#000000	bold	0
-Met	7000	-2300	16	#000000	bold	0
-SAM-related	6400	-2600	16	#000000	bold	0
-Polyamines	5800	-2200	16	#000000	bold	0
-Lipids	4850	-1550	16	#000000	bold	0
-2,3-BDO	5050	-1230	16	#000000	bold	0
-Ethanol	5250	-1295	16	#000000	bold	0
-Acetate	5520	-1360	16	#000000	bold	0
-Isobutyrate	4800	-800	16	#000000	bold	-90
-CoA	4370	-600	16	#000000	bold	0
-Branch-chain\namino acids	5000	-500	16	#000000	bold	0
-PPP/RMP	6500	-800	16	#000000	bold	0
+Glycolysis	5800	-1000	17	#000000	normal	-90
+TCA Cycle	6240	-1750	17	#000000	normal	0
+Gln	6450	-1860	17	#000000	normal	0
+Asp	6250	-1560	17	#000000	normal	0
+Thiamine	7800	-100	17	#000000	normal	0
+Purines	9060	-240	17	#000000	normal	0
+Pyrimidines	8750	-910	17	#000000	normal	0
+His	8840	-700	17	#000000	normal	0
+NAD	8040	-700	17	#000000	normal	0
+Aromatic\namino acids	8000	-1500	17	#000000	normal	0
+Cys	7400	-2110	17	#000000	normal	0
+Thr	7460	-1850	17	#000000	normal	0
+Met	7000	-2300	17	#000000	normal	0
+SAM-related	6400	-2600	17	#000000	normal	0
+Polyamines	5800	-2200	17	#000000	normal	0
+Lipids	4850	-1550	17	#000000	normal	0
+2,3-BDO	5020	-1230	17	#000000	bold	0
+Ethanol	5250	-1295	17	#000000	normal	0
+Acetate	5520	-1360	17	#000000	normal	0
+Isobutyrate	4800	-770	17	#000000	normal	-90
+CoA	4370	-600	17	#000000	normal	0
+Branch-chain\namino acids	5000	-500	17	#000000	normal	0
+PPP/RuMP	6570	-800	17	#000000	normal	0
