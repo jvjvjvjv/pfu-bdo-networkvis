@@ -670,5 +670,8 @@ def update_figure(group1, group2, normalize):
     """Update the figure when dropdown values change."""
     return create_figure(group1, group2, normalize)
 
+# Expose the Flask server for gunicorn
+server = app.server
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8050)
