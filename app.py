@@ -304,25 +304,66 @@ def process_nodes(G, group1_internal, group2_internal):
     has_metabolomics = (group1_internal in STRAINS_WITH_METABOLOMICS and 
                        group2_internal in STRAINS_WITH_METABOLOMICS)
     
+    # Determine if we need to invert the fold changes
+    # Original data is BDO-ALS vs Parent-COM (MW698 vs COM1c)
+    # If comparison is reversed, invert the fold changes
+    invert_fc = False
+    same_group = False
+    
+    if has_metabolomics:
+        if group1_internal == group2_internal:
+            same_group = True
+        elif group1_internal == 'COM1c' and group2_internal == 'MW698':
+            # Parent-COM vs BDO-ALS (reversed from original)
+            invert_fc = True
+    
+    def flip_significance(sig):
+        """Flip Up/Down significance when inverting fold changes."""
+        if sig == 'Up':
+            return 'Down'
+        elif sig == 'Down':
+            return 'Up'
+        else:
+            return sig  # 'NS' stays as 'NS'
+    
     node_values = []
     node_has_value = []
     node_sizes = []
     node_sig = []
+    node_pvals = []
     
     for node in G.nodes():
         node_data = G.nodes[node]
         
         # Only use metabolomics data if both strains have it
         if has_metabolomics and 'logFC' in node_data and node_data['logFC'] != "None":
-            node_values.append(node_data['logFC'])
-            node_has_value.append(True)
-            node_sizes.append(NODE_SIZE_HAS_DATA)
-            node_sig.append(node_data.get('significance', 'NS'))
+            if same_group:
+                # Same group comparison: FC = 0, p-value = 1
+                node_values.append(0)
+                node_has_value.append(True)
+                node_sizes.append(NODE_SIZE_HAS_DATA)
+                node_sig.append('NS')
+                node_pvals.append(1.0)
+            else:
+                # Normal or inverted comparison
+                fc_value = node_data['logFC']
+                sig_value = node_data.get('significance', 'NS')
+                
+                if invert_fc:
+                    fc_value = -fc_value
+                    sig_value = flip_significance(sig_value)
+                
+                node_values.append(fc_value)
+                node_has_value.append(True)
+                node_sizes.append(NODE_SIZE_HAS_DATA)
+                node_sig.append(sig_value)
+                node_pvals.append(node_data.get('adj.P.Val', None))
         else:
             node_values.append(0)
             node_has_value.append(False)
             node_sizes.append(NODE_SIZE_NO_DATA)
             node_sig.append(None)
+            node_pvals.append(None)
     
     # Color mapping
     vmin, vmax = NODE_COLOR_BOUNDS
@@ -343,7 +384,8 @@ def process_nodes(G, group1_internal, group2_internal):
         'sizes': node_sizes,
         'sig': node_sig,
         'colors': node_colors,
-        'has_metabolomics': has_metabolomics
+        'has_metabolomics': has_metabolomics,
+        'pvals': node_pvals
     }
 
 # =============== CREATE FIGURE ====================
@@ -467,8 +509,8 @@ def create_figure(group1_display, group2_display, normalize_display):
             hover_text += f"<b>Significance:</b> {node_data['sig'][i]}<br>"
             
             # Add adj.P.Val if available
-            if 'adj.P.Val' in node_attr:
-                hover_text += f"<b>Adj. P-value:</b> {node_attr['adj.P.Val']:.4e}<br>"
+            if node_data['pvals'][i] is not None:
+                hover_text += f"<b>Adj. P-value:</b> {node_data['pvals'][i]:.4e}<br>"
         else:
             if not node_data['has_metabolomics']:
                 hover_text += "<i>No metabolomics data for selected strains</i><br>"
@@ -572,7 +614,7 @@ app.layout = html.Div([
     # Control panel
     html.Div([
         html.Div([
-            html.Label('Group 1:', style={'fontWeight': 'bold', 'marginRight': '10px'}),
+            html.Label('Group 1 (numerator):', style={'fontWeight': 'bold', 'marginRight': '10px'}),
             dcc.Dropdown(
                 id='group1-dropdown',
                 options=[{'label': k, 'value': k} for k in STRAIN_DISPLAY_TO_INTERNAL.keys()],
@@ -583,7 +625,7 @@ app.layout = html.Div([
         ], style={'display': 'inline-block', 'marginRight': '20px'}),
         
         html.Div([
-            html.Label('Group 2:', style={'fontWeight': 'bold', 'marginRight': '10px'}),
+            html.Label('Group 2 (denominator):', style={'fontWeight': 'bold', 'marginRight': '10px'}),
             dcc.Dropdown(
                 id='group2-dropdown',
                 options=[{'label': k, 'value': k} for k in STRAIN_DISPLAY_TO_INTERNAL.keys()],
@@ -629,4 +671,4 @@ def update_figure(group1, group2, normalize):
     return create_figure(group1, group2, normalize)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=8050)
+    app.run(debug=True, host='0.0.0.0', port=8050)
