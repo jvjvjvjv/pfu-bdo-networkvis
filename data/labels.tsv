@@ -4,16 +4,17 @@ TCA Cycle	6240	-1750	17	#000000	normal	0
 Gln	6450	-1860	17	#000000	normal	0
 Asp	6250	-1560	17	#000000	normal	0
 Thiamine	7800	-100	17	#000000	normal	0
+Riboflavin	6780	-210	17	#000000	normal	0
 Purines	9060	-240	17	#000000	normal	0
 Pyrimidines	8750	-910	17	#000000	normal	0
 His	8840	-700	17	#000000	normal	0
-NAD	8040	-700	17	#000000	normal	0
+NAD	8050	-720	17	#000000	normal	0
 Aromatic\namino acids	8000	-1500	17	#000000	normal	0
 Cys	7400	-2110	17	#000000	normal	0
-Thr	7460	-1850	17	#000000	normal	0
+Thr	7460	-1860	17	#000000	normal	0
 Met	7000	-2300	17	#000000	normal	0
 SAM-related	6400	-2600	17	#000000	normal	0
-Polyamines	5800	-2200	17	#000000	normal	0
+Polyamines	5780	-2200	17	#000000	normal	0
 Lipids	4850	-1550	17	#000000	normal	0
 2,3-BDO	5020	-1230	17	#000000	bold	0
 Ethanol	5250	-1295	17	#000000	normal	0
