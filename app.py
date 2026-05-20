@@ -732,7 +732,18 @@ app.layout = html.Div([
     
     dcc.Graph(
         id='network-graph',
-        style={'height': '90vh'}
+        style={'height': '90vh'},
+        config={
+            'toImageButtonOptions': {
+                'format': 'png',
+                'filename': 'network_visualization',
+                'width': 1200,
+                'height': 1100,
+                'scale': 3
+            },
+            'displaylogo': True,
+            'modeBarButtonsToRemove': ['select2d']
+        }
     )
 ])
 
