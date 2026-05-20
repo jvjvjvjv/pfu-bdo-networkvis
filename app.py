@@ -151,6 +151,13 @@ NORMALIZE_OPTIONS = {
     "None": None
 }
 
+# Colorscale definition (matches interpolate_color function)
+COLORSCALE = [
+    [0.0, 'rgb(33, 102, 172)'],    # Blue (min)
+    [0.5, 'rgb(211, 211, 211)'],   # Grey (center)
+    [1.0, 'rgb(178, 24, 43)']      # Red (max)
+]
+
 # =============== LOAD STATIC DATA ====================
 
 def load_network_data():
@@ -538,9 +545,78 @@ def create_figure(group1_display, group2_display, normalize_display):
         ),
         showlegend=False
     )
+
+    # Create colorbar traces (invisible markers just for colorbars)
+    colorbar_traces = []
+    
+    # Edge colorbar (if any edges have data)
+    if any(edge_data['has_value']):
+        vmin, vmax = EDGE_COLOR_BOUNDS
+        edge_colorbar = go.Scatter(
+            x=[None],
+            y=[None],
+            mode='markers',
+            marker=dict(
+                colorscale=COLORSCALE,
+                cmin=vmin,
+                cmax=vmax,
+                colorbar=dict(
+                    title=dict(
+                        text='Flux log2FC<br>(Biomass-normalized)' if normalize_by == 'Biomass_Pfu' \
+                            else 'Flux log2FC<br>(Carbon-normalized)' if normalize_by == 'cellobioseABC' \
+                            else 'Flux log2FC',
+                        side='right',
+                        font=dict(size=17, color='#000000')
+                    ),
+                    thickness=25,
+                    len=0.4,
+                    y=0.72,
+                    yanchor='middle',
+                    x=1,
+                    xanchor='left',
+                    tickfont=dict(size=17, color='#000000')
+                ),
+                showscale=True
+            ),
+            showlegend=False,
+            hoverinfo='skip'
+        )
+        colorbar_traces.append(edge_colorbar)
+    
+    # Node colorbar (if any nodes have data and metabolomics available)
+    if any(node_data['has_value']) and node_data['has_metabolomics']:
+        vmin, vmax = NODE_COLOR_BOUNDS
+        node_colorbar = go.Scatter(
+            x=[None],
+            y=[None],
+            mode='markers',
+            marker=dict(
+                colorscale=COLORSCALE,
+                cmin=vmin,
+                cmax=vmax,
+                colorbar=dict(
+                    title=dict(
+                        text='Metabolite log2FC',
+                        side='right',
+                        font=dict(size=17, color='#000000')
+                    ),
+                    thickness=25,
+                    len=0.4,
+                    y=0.28,
+                    yanchor='middle',
+                    x=1,
+                    xanchor='left',
+                    tickfont=dict(size=17, color='#000000')
+                ),
+                showscale=True
+            ),
+            showlegend=False,
+            hoverinfo='skip'
+        )
+        colorbar_traces.append(node_colorbar)
     
     # Create figure
-    fig = go.Figure(data=edge_traces + [edge_hover_trace, node_trace])
+    fig = go.Figure(data=edge_traces + [edge_hover_trace, node_trace] + colorbar_traces)
     
     # Add annotations (labels)
     annotations = []
@@ -560,7 +636,7 @@ def create_figure(group1_display, group2_display, normalize_display):
             yref='y',
             align='center',
             bgcolor='rgba(255, 255, 255, 0.7)',
-            borderpad=4
+            borderpad=2
         )
         
         annotations.append(annotation)
@@ -569,7 +645,7 @@ def create_figure(group1_display, group2_display, normalize_display):
     fig.update_layout(
         title=dict(
             text=f"Interactive Network: {group1_display} vs {group2_display}",
-            font=dict(size=20)
+            font=dict(size=22, color='#000000')
         ),
         annotations=annotations,
         showlegend=False,
