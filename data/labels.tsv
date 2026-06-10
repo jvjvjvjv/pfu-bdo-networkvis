@@ -1,25 +1,32 @@
-text	x	y	font_size	font_color	font_weight	angle
-Glycolysis	5800	-1000	17	#000000	normal	-90
-TCA Cycle	6240	-1750	17	#000000	normal	0
-Gln	6450	-1860	17	#000000	normal	0
-Asp	6250	-1560	17	#000000	normal	0
-Thiamine	7800	-100	17	#000000	normal	0
-Riboflavin	6780	-210	17	#000000	normal	0
-Purines	9060	-240	17	#000000	normal	0
-Pyrimidines	8750	-910	17	#000000	normal	0
-His	8840	-700	17	#000000	normal	0
-NAD	8050	-720	17	#000000	normal	0
-Aromatic\namino acids	8000	-1500	17	#000000	normal	0
-Cys	7400	-2110	17	#000000	normal	0
-Thr	7460	-1860	17	#000000	normal	0
-Met	7000	-2300	17	#000000	normal	0
-SAM-related	6400	-2600	17	#000000	normal	0
-Polyamines	5780	-2200	17	#000000	normal	0
-Lipids	4850	-1550	17	#000000	normal	0
-2,3-BDO	5020	-1230	17	#000000	bold	0
-Ethanol	5250	-1295	17	#000000	normal	0
-Acetate	5520	-1360	17	#000000	normal	0
-Isobutyrate	4800	-770	17	#000000	normal	-90
-CoA	4370	-600	17	#000000	normal	0
-Branch-chain\namino acids	5000	-500	17	#000000	normal	0
-PPP/RuMP	6570	-800	17	#000000	normal	0
+text	x	y	font_size	font_color	font_weight	angle	border_width
+Cellobiose	5910	-330	17	#000000	normal	0	0
+Glycolysis	5780	-1000	17	#000000	normal	-90	1
+TCA Cycle	5890	-1690	17	#000000	normal	0	1
+Isocitrate	6740	-1560	17	#000000	normal	0	0
+Pyruvate	6150	-1180	17	#000000	normal	-15	0
+Ala	6280	-1255	17	#000000	normal	0	0
+Acetyl-CoA	6210	-1330	17	#000000	normal	0	0
+Glu	6370	-1750	17	#000000	normal	0	0
+Gln	6450	-1860	17	#000000	normal	0	0
+Asp	6250	-1560	17	#000000	normal	0	0
+Thiamine	7750	-90	17	#000000	normal	0	0
+Riboflavin	6780	-210	17	#000000	normal	0	0
+Purines	9060	-240	17	#000000	normal	0	1
+Pyrimidines	8780	-910	17	#000000	normal	0	1
+His	8840	-700	17	#000000	normal	0	0
+NAD[P]	8100	-740	17	#000000	normal	0	0
+Aromatic\namino acids	8120	-1240	17	#000000	normal	0	1
+Cys	7400	-2110	17	#000000	normal	0	0
+Thr	7560	-1855	17	#000000	normal	0	0
+Met	7000	-2300	17	#000000	normal	0	0
+SAM-related	6400	-2600	17	#000000	normal	0	1
+Polyamines	5770	-2200	17	#000000	normal	0	1
+Lipids	4850	-1550	17	#000000	normal	0	1
+2,3-BDO	5020	-1230	17	#000000	bold	0	0
+Ethanol	5250	-1295	17	#000000	normal	0	0
+Acetate	5520	-1360	17	#000000	normal	0	0
+Isobutyrate	4800	-770	17	#000000	normal	-90	0
+Mevalonate	5420	-1550	17	#000000	normal	0	0
+CoA	4370	-500	17	#000000	normal	0	0
+Branch-chain\namino acids	5000	-500	17	#000000	normal	0	1
+PPP/RuMP	6570	-800	17	#000000	normal	0	1

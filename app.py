@@ -101,7 +101,9 @@ def load_labels_from_file(filepath):
             'y': row['y'],
             'font_size': row.get('font_size', 14),
             'font_color': row.get('font_color', '#2c3e50'),
-            'angle': row.get('angle', 0)
+            'angle': row.get('angle', 0),
+            'border_width': row.get('border_width', 0),
+            'border_color': row.get('border_color', '#000000')
         }
         labels.append(label)
     return labels
@@ -621,6 +623,7 @@ def create_figure(group1_display, group2_display, normalize_display):
     # Add annotations (labels)
     annotations = []
     for label in LABELS:
+        border_width = label.get('border_width', 0)
         annotation = dict(
             x=label['x'],
             y=label['y'],
@@ -636,7 +639,9 @@ def create_figure(group1_display, group2_display, normalize_display):
             yref='y',
             align='center',
             bgcolor='rgba(255, 255, 255, 0.7)',
-            borderpad=2
+            borderpad=2,
+            borderwidth=border_width,
+            bordercolor=label.get('border_color', '#000000')
         )
         
         annotations.append(annotation)
